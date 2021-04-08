@@ -35,7 +35,6 @@ Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
 Plug 'ervandew/ag'  " searching within documents for keywords
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
-" Plug 'hoob3rt/lualine.nvim'
 Plug 'unblevable/quick-scope'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
@@ -44,9 +43,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'airblade/vim-gitgutter'
+Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'ryanoasis/vim-devicons'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -90,6 +89,29 @@ map <F8> :Ag
 map <Leader><F8> :copen<CR>
 map <Leader><Right> :cnext<CR>
 map <Leader><Left> :cprev<CR>
+
+
+" ===============================
+" ALE configuration
+let g:ale_sign_column_always = 1
+let g:ale_fixers = {
+      \ '*':          ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'erb':        ['erblint'],
+      \ 'ruby':       ['rubocop'],
+      \ 'html':       ['prettier'],
+      \ 'css':        ['prettier'],
+      \ 'sass':       ['prettier'],
+      \ 'scss':       ['prettier'],
+      \ 'javascript': ['prettier','eslint'],
+      \ 'typescript': ['prettier','eslint'],
+      \ 'markdown':   ['prettier'],
+      \ 'lua':        ['luafmt'],
+      \ 'rust':       ['rustfmt']}
+let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
+" let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '%linter% says %s'
+" let g:ale_completion_autoimport = 1
 
 " ===============================
 " The Silver Searcher
@@ -422,30 +444,3 @@ gls.short_line_left[2] = {
 
 gls.short_line_right[1] = {BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}}
 EOF
-
-" let g:lualine = {
-"       \'options' : {
-"       \  'theme' : 'nord',
-"       \  'section_separators' : ['', ''],
-"       \  'component_separators' : ['', ''],
-"       \  'icons_enabled' : v:true,
-"       \},
-"       \'sections' : {
-"       \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
-"       \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
-"       \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
-"       \  'lualine_x' : [ 'encoding', 'fileformat', 'filetype' ],
-"       \  'lualine_y' : [ 'progress' ],
-"       \  'lualine_z' : [ 'location'  ],
-"       \},
-"       \'inactive_sections' : {
-"       \  'lualine_a' : [  ],
-"       \  'lualine_b' : [  ],
-"       \  'lualine_c' : [ 'filename' ],
-"       \  'lualine_x' : [ 'location' ],
-"       \  'lualine_y' : [  ],
-"       \  'lualine_z' : [  ],
-"       \},
-"       \'extensions' : [ 'fzf' ],
-"       \}
-" lua require("lualine").setup()
