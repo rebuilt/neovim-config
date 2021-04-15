@@ -36,14 +36,14 @@ Plug 'ervandew/ag'  " searching within documents for keywords
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope'
-Plug 'elixir-editors/vim-elixir'
-Plug 'mhinz/vim-mix-format'
+" Plug 'elixir-editors/vim-elixir'
+" Plug 'mhinz/vim-mix-format'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'airblade/vim-gitgutter'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'autozimu/LanguageClient-neovim', {
@@ -54,6 +54,7 @@ Plug 'junegunn/fzf'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe' "for completion
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
 " ===============================
@@ -90,28 +91,39 @@ map <Leader><F8> :copen<CR>
 map <Leader><Right> :cnext<CR>
 map <Leader><Left> :cprev<CR>
 
+" File browser
+nnoremap <leader>t :NvimTreeToggle<CR>
+nnoremap <F4> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
+" Automatic formatter configuration
+" ===============================
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 " ===============================
 " ALE configuration
-let g:ale_sign_column_always = 1
-let g:ale_fixers = {
-      \ '*':          ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'erb':        ['erblint'],
-      \ 'ruby':       ['rubocop'],
-      \ 'html':       ['prettier'],
-      \ 'css':        ['prettier'],
-      \ 'sass':       ['prettier'],
-      \ 'scss':       ['prettier'],
-      \ 'javascript': ['prettier','eslint'],
-      \ 'typescript': ['prettier','eslint'],
-      \ 'markdown':   ['prettier'],
-      \ 'lua':        ['luafmt'],
-      \ 'rust':       ['rustfmt']}
-let g:ale_lint_on_enter = 0
-let g:ale_fix_on_save = 1
-" let g:ale_completion_enabled = 1
-let g:ale_echo_msg_format = '%linter% says %s'
-" let g:ale_completion_autoimport = 1
+" let g:ale_sign_column_always = 1
+" let g:ale_fixers = {
+"       \ '*':          ['remove_trailing_lines', 'trim_whitespace'],
+"       \ 'erb':        ['erblint'],
+"       \ 'ruby':       ['rubocop'],
+"       \ 'html':       ['prettier'],
+"       \ 'css':        ['prettier'],
+"       \ 'sass':       ['prettier'],
+"       \ 'scss':       ['prettier'],
+"       \ 'javascript': ['prettier','eslint'],
+"       \ 'typescript': ['prettier','eslint'],
+"       \ 'markdown':   ['prettier'],
+"       \ 'lua':        ['luafmt'],
+"       \ 'rust':       ['rustfmt']}
+" let g:ale_lint_on_enter = 0
+" let g:ale_fix_on_save = 1
+" " let g:ale_completion_enabled = 1
+" let g:ale_echo_msg_format = '%linter% says %s'
+" " let g:ale_completion_autoimport = 1
 
 " ===============================
 " The Silver Searcher
