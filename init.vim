@@ -46,12 +46,14 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe' "for completion
+" Tab line
+Plug 'romgrk/barbar.nvim'
 " Status bar 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " File browser
 Plug 'kyazdani42/nvim-tree.lua'
 " Telescope and its dependencies
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-web-devicons' " icons
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -99,6 +101,11 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>t :NvimTreeToggle<CR>
 nnoremap <F4> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
+
+" Tabs
+nnoremap <TAB> :BufferNext<CR>
+nnoremap <S-TAB> :BufferPrevious<CR>
+nnoremap <S-x> :BufferClose<CR>
 
 " Automatic formatter configuration
 " ===============================
