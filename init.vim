@@ -30,27 +30,24 @@ Plug 'tpope/vim-repeat'    "plugin commands are repeatable
 Plug 'tpope/vim-commentary'  "easy commenting
 Plug 'tpope/vim-rails'  "rails specific commands
 Plug 'tpope/vim-fugitive'  "easy git commands
-Plug 'kien/ctrlp.vim'  "fuzzy finding search file
+" Plug 'kien/ctrlp.vim'  "fuzzy finding search file
 Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
 Plug 'ervandew/ag'  " searching within documents for keywords
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope'
-" Plug 'elixir-editors/vim-elixir'
-" Plug 'mhinz/vim-mix-format'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'airblade/vim-gitgutter'
-" Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe' "for completion
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
@@ -90,6 +87,8 @@ map <F8> :Ag
 map <Leader><F8> :copen<CR>
 map <Leader><Right> :cnext<CR>
 map <Leader><Left> :cprev<CR>
+map <c-p> :FZF<CR>
+map <c-P> :FZF<CR>
 
 " File browser
 nnoremap <leader>t :NvimTreeToggle<CR>
@@ -103,27 +102,6 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
-" ===============================
-" ALE configuration
-" let g:ale_sign_column_always = 1
-" let g:ale_fixers = {
-"       \ '*':          ['remove_trailing_lines', 'trim_whitespace'],
-"       \ 'erb':        ['erblint'],
-"       \ 'ruby':       ['rubocop'],
-"       \ 'html':       ['prettier'],
-"       \ 'css':        ['prettier'],
-"       \ 'sass':       ['prettier'],
-"       \ 'scss':       ['prettier'],
-"       \ 'javascript': ['prettier','eslint'],
-"       \ 'typescript': ['prettier','eslint'],
-"       \ 'markdown':   ['prettier'],
-"       \ 'lua':        ['luafmt'],
-"       \ 'rust':       ['rustfmt']}
-" let g:ale_lint_on_enter = 0
-" let g:ale_fix_on_save = 1
-" " let g:ale_completion_enabled = 1
-" let g:ale_echo_msg_format = '%linter% says %s'
-" " let g:ale_completion_autoimport = 1
 
 " ===============================
 " The Silver Searcher
@@ -138,10 +116,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" ===============================
-" Rust Language Server
-" autocmd BufReadPost *.rs setlocal filetype=rust
-
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
@@ -149,40 +123,8 @@ set hidden
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Elixir formatter
-" ===============================
-let g:mix_format_on_save = 1
-
-" compe config -autocomplete
-" ===============================
-lua <<EOF
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-  };
-}
-EOF
-
-
+luafile ~/.config/nvim/galaxyline.lua
+luafile ~/.config/nvim/lua/lsp/compe.lua
 luafile ~/.config/nvim/lua/lsp/treesitter.lua
 luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
-luafile ~/.config/nvim/galaxyline.lua
 luafile ~/.config/nvim/lua/lsp/lua-ls.lua
