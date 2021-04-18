@@ -181,24 +181,8 @@ require'compe'.setup {
 }
 EOF
 
-" Treesitter config
-" ===============================
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "c", "rust" },  -- list of language that will be disabled
-  },
-  indent = {
-  enable = true,
-  },
-  autotag = {enable = true}
-}
-EOF
 
-
+luafile ~/.config/nvim/lua/lsp/treesitter.lua
 luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
 luafile ~/.config/nvim/galaxyline.lua
 luafile ~/.config/nvim/lua/lsp/lua-ls.lua
