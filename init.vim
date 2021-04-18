@@ -30,7 +30,6 @@ Plug 'tpope/vim-repeat'    "plugin commands are repeatable
 Plug 'tpope/vim-commentary'  "easy commenting
 Plug 'tpope/vim-rails'  "rails specific commands
 Plug 'tpope/vim-fugitive'  "easy git commands
-" Plug 'kien/ctrlp.vim'  "fuzzy finding search file
 Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
 Plug 'ervandew/ag'  " searching within documents for keywords
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
@@ -65,9 +64,6 @@ let g:onedark_color_overrides = {
 \}
 lua require'plug-colorizer'
 colorscheme onedark
-
-"Airline configuration
-let g:airline#extensions#ale#enabled = 1
 
 " ===============================
 " Closetage config
