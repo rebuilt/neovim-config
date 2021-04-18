@@ -31,7 +31,6 @@ Plug 'tpope/vim-commentary'  "easy commenting
 Plug 'tpope/vim-rails'  "rails specific commands
 Plug 'tpope/vim-fugitive'  "easy git commands
 Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
-Plug 'ervandew/ag'  " searching within documents for keywords
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope'
@@ -41,16 +40,21 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'sbdchd/neoformat'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe' "for completion
+" Status bar 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" File browser
 Plug 'kyazdani42/nvim-tree.lua'
+" Telescope and its dependencies
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 " ===============================
@@ -58,7 +62,7 @@ call plug#end()
 set termguicolors
 
 " ===============================
-" Set Color Scheme
+"Set Color Scheme
 let g:onedark_color_overrides = {
 \ "black": {"gui": "#010110", "cterm": "235", "cterm16": "0" },
 \}
@@ -79,18 +83,22 @@ nmap <F5> <Plug>(lcn-menu)
 map <F6> :lopen<CR>
 map <Leader><F6> :lclose<CR>
 map <F7> :set relativenumber!<CR>:set number<CR>
-map <F8> :Ag
 map <Leader><F8> :copen<CR>
 map <Leader><Right> :cnext<CR>
 map <Leader><Left> :cprev<CR>
-map <c-p> :FZF<CR>
-map <c-P> :FZF<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <c-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <F8> <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " File browser
 nnoremap <leader>t :NvimTreeToggle<CR>
 nnoremap <F4> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " Automatic formatter configuration
 " ===============================
@@ -98,19 +106,6 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
-
-" ===============================
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
