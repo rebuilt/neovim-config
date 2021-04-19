@@ -2,7 +2,17 @@ syntax on
 filetype plugin indent on
 set relativenumber
 set clipboard+=unnamedplus
+set wildmode=longest,list,full
 set wildmenu
+" Ignore files
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
+
 set cmdheight=2 " Sets height of command window
 
 " Change tabs to 2 spaces
@@ -11,6 +21,9 @@ set tabstop=2
 retab
 set shiftwidth=2
 " end tab settings
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
 
 "remap jj to also be escape key
 imap jj <Esc>
@@ -115,9 +128,6 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
-
-" Required for operations modifying multiple buffers like rename.
-set hidden
 
 set completeopt=menuone,noinsert,noselect,preview
 " Use <Tab> and <S-Tab> to navigate through popup menu
