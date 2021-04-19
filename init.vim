@@ -119,11 +119,12 @@ augroup END
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
+set completeopt=menuone,noinsert,noselect,preview
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-luafile ~/.config/nvim/galaxyline.lua
+luafile ~/.config/nvim/lua/galaxyline/galaxyline.lua
 luafile ~/.config/nvim/lua/lsp/compe.lua
 luafile ~/.config/nvim/lua/lsp/treesitter.lua
 luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
