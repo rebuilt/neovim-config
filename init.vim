@@ -30,12 +30,14 @@ Plug 'tpope/vim-repeat'    "plugin commands are repeatable
 Plug 'tpope/vim-commentary'  "easy commenting
 Plug 'tpope/vim-rails'  "rails specific commands
 Plug 'tpope/vim-fugitive'  "easy git commands
+Plug 'tpope/vim-endwise' " adds the end keyword automatically
 Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope' " highlight unique letter on a line for quick line navigation
 Plug 'airblade/vim-gitgutter'
 Plug 'sbdchd/neoformat'
+Plug 'Yggdroot/indentLine' 
 " Language client
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
@@ -44,7 +46,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'glepnir/lspsaga.nvim'
+Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe' "for completion
 " Tab line
 Plug 'romgrk/barbar.nvim'
@@ -106,45 +108,6 @@ nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <TAB> :BufferNext<CR>
 nnoremap <S-TAB> :BufferPrevious<CR>
 nnoremap <S-x> :BufferClose<CR>
-
-" lua require'lspsaga'
-
-" " lsp provider to find the cursor word definition and reference
-" nnoremap <silent> gh :Lspsaga lsp_finder<CR>
-
-" " code action
-" nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-" " vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-
-" " show hover doc
-" nnoremap <silent>K :Lspsaga hover_doc<CR>
-
-" " scroll down hover doc or scroll in definition preview
-" " nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-" " scroll up hover doc
-" " nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-
-" " show signature help
-" " nnoremap <silent> gs :Lspsaga signature_help<CR>
-
-" " rename
-" nnoremap <silent>gr :Lspsaga rename<CR>
-" " close rename win use <C-c> in insert mode or `q` in noremal mode or `:q`
-
-" " preview definition
-" " nnoremap <silent> gd :Lspsaga preview_definition<CR>
-
-" " show
-" " nnoremap <silent> <leader>cd :Lspsaga show_line_diagnostics<CR>
-" " only show diagnostic if cursor is over the area
-" " nnoremap <silent><leader>cc <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
-
-" " jump diagnostic
-" nnoremap <silent> <leader>] :Lspsaga diagnostic_jump_next<CR>
-" nnoremap <silent> <leader>[ :Lspsaga diagnostic_jump_prev<CR>
-" " float terminal also you can pass the cli command in open_float_terminal function
-" nnoremap <silent> <A-d> :Lspsaga open_floaterm<CR>
-" tnoremap <silent> <A-d> <C-\><C-n>:Lspsaga close_floaterm<CR>
 
 " Automatic formatter configuration
 " ===============================
