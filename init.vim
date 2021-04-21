@@ -35,6 +35,7 @@ let mapleader=" "
 " ===============================
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
+Plug 'liuchengxu/vista.vim'
 Plug 'cohama/lexima.vim' "auto close parenthesis
 Plug 'alvan/vim-closetag', {'for': ['html','eruby', 'js']} "closes html brackets
 Plug 'joshdick/onedark.vim' " Onedark color scheme
@@ -87,6 +88,12 @@ lua require'plug-colorizer'
 colorscheme onedark
 
 " ===============================
+" Vista setup
+let g:vista_close_on_jump = 1
+let g:vista_blink = [3,100]
+
+set termguicolors
+" ===============================
 " Closetage config
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 let g:closetag_shortcut = '>'
@@ -94,6 +101,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ===============================
 " Fuction key shortcuts
+nmap <F2> :Vista!!<CR>
 map <F3> :!ruby %<CR>
 " note that if you are using Plug mapping you should not use `noremap` mappings.
 nmap <F5> <Plug>(lcn-menu)
