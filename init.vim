@@ -148,3 +148,4 @@ luafile ~/.config/nvim/lua/lsp/compe.lua
 luafile ~/.config/nvim/lua/lsp/treesitter.lua
 luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
 luafile ~/.config/nvim/lua/lsp/lua-ls.lua
+luafile ~/.config/nvim/lua/telescope/telescope.lua
