@@ -1,4 +1,5 @@
 local gl = require('galaxyline')
+local lsp = require('lsp-status')
 -- get my theme in galaxyline repo
 -- local colors = require('galaxyline.theme').default
 local colors = {
@@ -209,6 +210,15 @@ gls.right[11] = {
         highlight = {colors.orange, colors.bg}
     }
 }
+gls.right[12] = {
+    Status = {
+        provider = function() return lsp.status() end,
+        -- provider = function() return "Im right here" end,
+        separator = ' ',
+        separator_highlight = {'NONE', colors.bg},
+        highlight = {colors.orange, colors.bg}
+    }
+}
 
 gls.short_line_left[1] = {
     BufferType = {
@@ -230,3 +240,4 @@ gls.short_line_left[2] = {
 gls.short_line_right[1] = {
     BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}
 }
+
