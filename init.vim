@@ -50,6 +50,7 @@ Plug 'norcalli/nvim-colorizer.lua' "colorizer
 Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope' " highlight unique letter on a line for quick line navigation
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'sbdchd/neoformat'
 Plug 'Yggdroot/indentLine' 
 " Language client
