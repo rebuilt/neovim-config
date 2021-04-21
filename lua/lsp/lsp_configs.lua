@@ -64,9 +64,7 @@ nvim_lsp.tsserver.setup {}
 -- Ruby language server
 nvim_lsp.solargraph.setup {
     filetypes = {"ruby", "rakefile"},
-    -- cmd = {"/home/nelson/.rvm/gems/ruby-3.0.0/bin/solargraph", "stdio"},
-    -- root_dir = root_pattern("Gemfile", ".git",
-    --                         "/home/nelson/.rvm/gems/ruby-3.0.0/bin"),
+    root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
     settings = {
         solargraph = {
             autoformat = true,
