@@ -55,7 +55,7 @@ vim.lsp.protocol.CompletionItemKind = {
 -- General language server
 nvim_lsp.efm.setup {
     cmd = {"/usr/bin/efm-langserver"},
-    filetypes = {"lua", "vim"}
+    filetypes = {"lua", "vim", "eruby"}
 }
 
 -- Typescript language server
@@ -63,8 +63,10 @@ nvim_lsp.tsserver.setup {}
 
 -- Ruby language server
 nvim_lsp.solargraph.setup {
-    -- filetypes = {"ruby", "rbs"},
+    filetypes = {"ruby", "rakefile"},
     -- cmd = {"/home/nelson/.rvm/gems/ruby-3.0.0/bin/solargraph", "stdio"},
+    -- root_dir = root_pattern("Gemfile", ".git",
+    --                         "/home/nelson/.rvm/gems/ruby-3.0.0/bin"),
     settings = {
         solargraph = {
             autoformat = true,
