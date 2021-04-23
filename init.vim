@@ -40,6 +40,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'Krasjet/auto.pairs'
 Plug 'alvan/vim-closetag', {'for': ['html','eruby', 'js']} "closes html brackets
 Plug 'joshdick/onedark.vim' " Onedark color scheme
+Plug 'tpope/vim-endwise' " Closes functions with keyword end
 Plug 'tpope/vim-surround'  "ysat: you surround all text
 Plug 'tpope/vim-repeat'    "plugin commands are repeatable
 Plug 'tpope/vim-commentary'  "easy commenting
@@ -69,6 +70,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'mfussenegger/nvim-jdtls'
 " Auto-completion and dependencies
+" Snippets for other languages can be found here: https://github.com/craigmac/vim-vsnip-snippets/tree/master/snippets
 Plug 'hrsh7th/vim-vsnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -123,15 +125,8 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " File browser
-nnoremap <leader>t :NvimTreeToggle<CR>
-let g:ranger_map_keys = 0
 nnoremap <F4> :Ranger<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-
-" Tabs
-nnoremap <TAB> :BufferNext<CR>
-nnoremap <S-TAB> :BufferPrevious<CR>
-nnoremap <S-x> :BufferClose<CR>
+map <leader>rr :Ranger<cr>
 
 " Automatic formatter configuration
 " ===============================
@@ -150,9 +145,8 @@ luafile ~/.config/nvim/lua/lsp/emmet.lua
 
 "Auto-Completion options
 " ===============================
-lua require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
 " Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
+" autocmd BufEnter * lua require'completion'.on_attach()
 let g:completion_enable_snippet = 'vim-vsnip'
 
 set completeopt=menuone,noinsert,noselect,preview
