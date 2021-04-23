@@ -57,7 +57,6 @@ Plug 'autozimu/LanguageClient-neovim', {
       \ 'do': 'bash install.sh',
       \ }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Tab line
 " Status bar 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " File browser and dependencies
@@ -71,6 +70,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'mfussenegger/nvim-jdtls'
 " Auto-completion and dependencies
 Plug 'hrsh7th/vim-vsnip'
+Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'nvim-lua/completion-nvim'
 
