@@ -12,6 +12,7 @@ set wildignore+=**/node_modules/*
 set wildignore+=**/android/*
 set wildignore+=**/ios/*
 set wildignore+=**/.git/*
+set updatetime=500
 
 set cmdheight=2 " Sets height of command window
 
@@ -36,47 +37,43 @@ let mapleader=" "
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'liuchengxu/vista.vim'
-Plug 'cohama/lexima.vim' "auto close parenthesis
+Plug 'Krasjet/auto.pairs'
 Plug 'alvan/vim-closetag', {'for': ['html','eruby', 'js']} "closes html brackets
 Plug 'joshdick/onedark.vim' " Onedark color scheme
 Plug 'tpope/vim-surround'  "ysat: you surround all text
 Plug 'tpope/vim-repeat'    "plugin commands are repeatable
 Plug 'tpope/vim-commentary'  "easy commenting
-Plug 'tpope/vim-rails'  "rails specific commands
 Plug 'tpope/vim-fugitive'  "easy git commands
-Plug 'tpope/vim-endwise' " adds the end keyword automatically
-Plug 'vim-ruby/vim-ruby'  " ruby support including gf : goto file
 Plug 'norcalli/nvim-colorizer.lua' "colorizer
-Plug 'mattn/emmet-vim', {'for': [ 'html', 'eruby', 'elixir']} " provides html snippets
 Plug 'unblevable/quick-scope' " highlight unique letter on a line for quick line navigation
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'sbdchd/neoformat'
-Plug 'Yggdroot/indentLine' 
 " Language client
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'glepnir/lspsaga.nvim'
-Plug 'hrsh7th/nvim-compe' "for completion
 " Tab line
-Plug 'romgrk/barbar.nvim'
 " Status bar 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-" File browser
-Plug 'kyazdani42/nvim-tree.lua'
+" File browser and dependencies
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
 " Telescope and its dependencies
 Plug 'kyazdani42/nvim-web-devicons' " icons
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'mfussenegger/nvim-jdtls'
-" Plug 'telescope-frecency.nvim'
-" Plug 'tami5/sql.nvim'
+" Auto-completion and dependencies
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'nvim-lua/completion-nvim'
+
 call plug#end()
 
 " ===============================
@@ -86,8 +83,8 @@ set termguicolors
 " ===============================
 "Set Color Scheme
 let g:onedark_color_overrides = {
-\ "black": {"gui": "#010110", "cterm": "235", "cterm16": "0" },
-\}
+      \ "black": {"gui": "#010110", "cterm": "235", "cterm16": "0" },
+      \}
 lua require'plug-colorizer'
 colorscheme onedark
 
@@ -127,7 +124,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " File browser
 nnoremap <leader>t :NvimTreeToggle<CR>
-nnoremap <F4> :NvimTreeToggle<CR>
+let g:ranger_map_keys = 0
+nnoremap <F4> :Ranger<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 
 " Tabs
@@ -142,14 +140,28 @@ augroup fmt
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
+luafile ~/.config/nvim/lua/galaxyline/galaxyline.lua
+luafile ~/.config/nvim/lua/telescope/telescope.lua
+" luafile ~/.config/nvim/lua/lsp/compe.lua
+luafile ~/.config/nvim/lua/lsp/treesitter.lua
+luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
+luafile ~/.config/nvim/lua/lsp/lua-ls.lua
+luafile ~/.config/nvim/lua/lsp/emmet.lua
+
+"Auto-Completion options
+" ===============================
+lua require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+let g:completion_enable_snippet = 'vim-vsnip'
+
 set completeopt=menuone,noinsert,noselect,preview
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-luafile ~/.config/nvim/lua/galaxyline/galaxyline.lua
-luafile ~/.config/nvim/lua/lsp/compe.lua
-luafile ~/.config/nvim/lua/lsp/treesitter.lua
-luafile ~/.config/nvim/lua/lsp/lsp_configs.lua
-luafile ~/.config/nvim/lua/lsp/lua-ls.lua
-luafile ~/.config/nvim/lua/telescope/telescope.lua
+" Avoid showing message extra message when using completion
+set shortmess+=c
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
+
