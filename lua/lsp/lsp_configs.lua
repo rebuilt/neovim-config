@@ -54,15 +54,17 @@ vim.lsp.protocol.CompletionItemKind = {
 
 -- General language server
 nvim_lsp.efm.setup {
+    on_attach = require'completion'.on_attach,
     cmd = {"/usr/bin/efm-langserver"},
     filetypes = {"lua", "vim", "eruby"}
 }
 
 -- Typescript language server
-nvim_lsp.tsserver.setup {}
+nvim_lsp.tsserver.setup {on_attach = require'completion'.on_attach}
 
 -- Ruby language server
 nvim_lsp.solargraph.setup {
+    on_attach = require'completion'.on_attach,
     filetypes = {"ruby", "rakefile"},
     root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
     settings = {
@@ -79,19 +81,23 @@ nvim_lsp.solargraph.setup {
 }
 
 -- Python language server
-nvim_lsp.pyright.setup {}
+nvim_lsp.pyright.setup {on_attach = require'completion'.on_attach}
 
 -- CSS language server
-nvim_lsp.cssls.setup {}
+nvim_lsp.cssls.setup {on_attach = require'completion'.on_attach}
 
 -- HTML language server
 -- Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-nvim_lsp.html.setup {capabilities = capabilities}
+nvim_lsp.html.setup {
+    on_attach = require'completion'.on_attach,
+    capabilities = capabilities
+}
 
 -- JSON language server
 nvim_lsp.jsonls.setup {
+
     commands = {
         Format = {
             function()
@@ -102,20 +108,21 @@ nvim_lsp.jsonls.setup {
 }
 
 -- Rust language server
-nvim_lsp.rust_analyzer.setup {}
+nvim_lsp.rust_analyzer.setup {on_attach = require'completion'.on_attach}
 
 -- Lua language server
-nvim_lsp.sumneko_lua.setup {}
+nvim_lsp.sumneko_lua.setup {on_attach = require'completion'.on_attach}
 
 -- TEX language server
 -- nvim_lsp.texlab.setup {}
 
 -- Vim language server
-nvim_lsp.vimls.setup {}
+nvim_lsp.vimls.setup {on_attach = require'completion'.on_attach}
 
 -- YAML language server
-nvim_lsp.yamlls.setup {}
+nvim_lsp.yamlls.setup {on_attach = require'completion'.on_attach}
 
+require'lspconfig'.pyls.setup {}
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
 -- local servers = {
